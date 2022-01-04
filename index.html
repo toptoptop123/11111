@@ -53,7 +53,9 @@
       const result = await liff.shareTargetPicker([{
         "type": "flex",
         "altText": "คุณได้รับเครดิตฟรี รีบเลยก่อนหมดเขต",
-        "type": "bubble",
+    "type": "flex",
+    "contents": {
+      "type": "bubble",
   "hero": {
     "type": "image",
     "url": "https://www.img.in.th/images/d9ddcfa71805dacb83c48f0f9786c53f.jpg",
@@ -140,6 +142,22 @@
     "flex": 0
   }
 }
+      }])
+      if (result) {
+        liff.closeWindow()
+      } else {
+        const [majorVer, minorVer, patchVer] = (liff.getLineVersion() || "").split('.');
+
+        if (minorVer === undefined) {
+          alert('มีการกดออกจากการแชร์')
+          return
+        }
+
+        if (parseInt(majorVer) >= 10 && parseInt(minorVer) >= 10 && parseInt(patchVer) > 0) {
+          alert('มีการกดออกจากการแชร์')
+        }
+      }
+    }
 
     function logOut() {
       liff.logout()
